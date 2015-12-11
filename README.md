@@ -9,9 +9,9 @@ Java(8), which exercise the streams implemented in `org.reactivestreams`.
 The dependency looks like this in a Maven pom:
 ```xml
 <dependency>
-    <groupId>org.reactivestreams</groupId>
-    <artifactId>reactive-streams</artifactId>
-    <version>1.0.0</version>
+	<groupId>io.projectreactor</groupId>
+	<artifactId>reactor-stream</artifactId>
+	<version>2.0.1.RELEASE</version>
 </dependency>
 ```
 
