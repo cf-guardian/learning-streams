@@ -4,7 +4,7 @@ A play area for learning about reactive streams.
 ## Content
 
 The idea is that this repository will have some test programs, written in
-Java(8), which exercise the streams implemented in `org.reactivestreams`.
+Java(8), which exercise the streams implemented in `io.projectreactor`.
 
 The dependency looks like this in a Maven pom:
 ```xml
