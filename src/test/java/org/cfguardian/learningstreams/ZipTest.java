@@ -1,5 +1,6 @@
 package org.cfguardian.learningstreams;
 
+import static org.cfguardian.learningstreams.LearningStreams.optional;
 import static org.junit.Assert.*;
 
 import java.util.Optional;
@@ -13,12 +14,10 @@ public final class ZipTest {
 	@Test
 	public void compareStreams() {
 
-		Stream<Optional<String>> as = Streams.just("x", "y")
-				.map(a-> Optional.of(a)).concatWith(Streams.just(Optional.empty()));
-		Stream<Optional<String>> bs = Streams.just("x")
-				.map(a-> Optional.of(a)).concatWith(Streams.just(Optional.empty()));
+		Stream<String> as = Streams.just("x", "y");
+		Stream<String> bs = Streams.just("x");
 
-		assertFalse(Streams.zip(as, bs, (a, b) -> a.equals(b))
+		assertFalse(Streams.zip(optional(as), optional(bs), (a, b) -> a.equals(b))
 				.reduce(true, (accum, match) -> accum && match)
 				.next().get());
 	}
