@@ -5,7 +5,7 @@ import static org.junit.Assert.*;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import org.junit.Test;
-import reactor.Mono;
+import reactor.core.publisher.Mono;
 import reactor.rx.Promise;
 
 public class PromiseTest {
