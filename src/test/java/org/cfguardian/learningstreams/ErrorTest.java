@@ -5,6 +5,7 @@ import static org.junit.Assert.*;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import org.junit.Test;
+import reactor.core.publisher.Mono;
 import reactor.rx.Stream;
 
 public final class ErrorTest {
@@ -47,5 +48,13 @@ public final class ErrorTest {
 
 		assertFalse(mapped.get());
 		assertTrue(error.get());
+	}
+	
+	@Test(expected=IllegalArgumentException.class)
+	public void afterBehaviourWithUpstreamError() {
+
+		Mono.error(new IllegalArgumentException("bad"))
+				.after(Mono.empty())
+				.get();
 	}
 }
