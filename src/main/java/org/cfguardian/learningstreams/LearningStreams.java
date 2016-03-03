@@ -2,7 +2,7 @@ package org.cfguardian.learningstreams;
 
 import java.util.Optional;
 
-import reactor.rx.Stream;
+import reactor.core.publisher.Flux;
 
 public class LearningStreams {
 
@@ -10,7 +10,7 @@ public class LearningStreams {
 		System.out.println("Hello");
 	}
 
-	public static <T> Stream<Optional<T>> optional(Stream<T> as) {
-		return as.map(a-> Optional.of(a)).concatWith(Stream.just(Optional.empty()));
+	public static <T> Flux<Optional<T>> optional(Flux<T> as) {
+		return as.map(a-> Optional.of(a)).concatWith(Flux.just(Optional.empty()));
 	}
 }

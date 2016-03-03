@@ -1,31 +1,35 @@
 package org.cfguardian.learningstreams;
 
-import static org.cfguardian.learningstreams.LearningStreams.*;
-import static org.junit.Assert.*;
+import static org.cfguardian.learningstreams.LearningStreams.optional;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
-import reactor.rx.Stream;
+import reactor.core.publisher.Flux;
 
 public final class ZipTest {
 
     @Test
-    public void compareStreams() {
+    public void compareFluxs() {
 
-        Stream<String> as = Stream.just("x", "y");
-        Stream<String> bs = Stream.just("x");
+        Flux<String> as = Flux.just("x", "y");
+        Flux<String> bs = Flux.just("x");
 
-        assertFalse(Stream.zip(optional(as), optional(bs), (a, b) -> a.equals(b))
-                .reduce(true, (accum, match) -> accum && match)
-                .get());
+        assertFalse(Flux
+            .zip(optional(as), optional(bs), (a, b) -> a.equals(b))
+            .reduce(true, (accum, match) -> accum && match)
+            .get());
     }
 
     @Test
     public void simpleZip() {
 
-        Stream<String> as = Stream.just("x");
-        Stream<String> bs = Stream.just("y");
+        Flux<String> as = Flux.just("x");
+        Flux<String> bs = Flux.just("y", "z");
 
-        assertTrue(Stream.zip(as, bs, (a, b) -> "x".equals(a) && "y".equals(b))
-                .next().get());
+        assertTrue(Flux
+            .zip(as, bs, (a, b) -> "x".equals(a) && "y".equals(b))
+            .next()
+            .get());
     }
 }
