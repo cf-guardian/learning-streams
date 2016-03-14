@@ -9,9 +9,9 @@ Java(8), which exercise the streams implemented in `io.projectreactor`.
 The dependency looks like this in a Maven pom:
 ```xml
 <dependency>
-	<groupId>io.projectreactor</groupId>
-	<artifactId>reactor-stream</artifactId>
-	<version>2.0.1.RELEASE</version>
+    <groupId>io.projectreactor</groupId>
+    <artifactId>reactor-core</artifactId>
+    <version>${projectreactor.version}</version>
 </dependency>
 ```
 
