@@ -9,27 +9,37 @@ import reactor.core.publisher.Flux;
 
 public final class ZipTest {
 
-    @Test
-    public void compareFluxs() {
+	@Test
+	public void compareFluxs() {
 
-        Flux<String> as = Flux.just("x", "y");
-        Flux<String> bs = Flux.just("x");
+		assertFalse(Flux
+				.zip(
+						optional(Flux.just("x", "y")),
+						optional(Flux.just("x")),
+						(a, b) -> a.equals(b)
+				)
+				.reduce(true, (accum, match) -> accum && match)
+				.get());
 
-        assertFalse(Flux
-            .zip(optional(as), optional(bs), (a, b) -> a.equals(b))
-            .reduce(true, (accum, match) -> accum && match)
-            .get());
-    }
+		assertTrue(Flux
+				.zip(
+						optional(Flux.just("x", "y")),
+						optional(Flux.just("x", "y")),
+						(a, b) -> a.equals(b)
+				)
+				.reduce(true, (accum, match) -> accum && match)
+				.get());
+	}
 
-    @Test
-    public void simpleZip() {
+	@Test
+	public void simpleZip() {
 
-        Flux<String> as = Flux.just("x");
-        Flux<String> bs = Flux.just("y", "z");
+		Flux<String> as = Flux.just("x");
+		Flux<String> bs = Flux.just("y", "z");
 
-        assertTrue(Flux
-            .zip(as, bs, (a, b) -> "x".equals(a) && "y".equals(b))
-            .next()
-            .get());
-    }
+		assertTrue(Flux
+				.zip(as, bs, (a, b) -> "x".equals(a) && "y".equals(b))
+				.next()
+				.get());
+	}
 }

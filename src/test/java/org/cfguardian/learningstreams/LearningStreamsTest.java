@@ -11,19 +11,33 @@ import reactor.core.publisher.Flux;
 
 public final class LearningStreamsTest {
 
-    @Test
-    public final void streamFromIterable() {
-        assertEquals("singleton element 1", Flux.fromIterable(getSimpleList()).next().get());
-    }
+	private static List<String> getSimpleList() {
+		return Collections.singletonList("singleton element 1");
+	}
 
-    @Test
-    public final void publisherToStream() {
-        Publisher<String> p = Flux.fromIterable(getSimpleList());
+	private static Flux<String> stringRangeFlux(String prefix, int n) {
+		return Flux.range(0, n)
+				.map(i -> prefix + i);
+	}
 
-        assertEquals("singleton element 1", Flux.from(p).next().get());
-    }
+	@Test
+	public final void streamFromIterable() {
+		assertEquals("singleton element 1", Flux.fromIterable(getSimpleList()).next().get());
+	}
 
-    List<String> getSimpleList() {
-        return Collections.singletonList("singleton element 1");
-    }
+	@Test
+	public final void publisherToStream() {
+		Publisher<String> p = Flux.fromIterable(getSimpleList());
+
+		assertEquals("singleton element 1", Flux.from(p).next().get());
+	}
+
+	@Test
+	public final void tryPrinting() {
+
+		stringRangeFlux("element ", 10)
+				.map(x -> x)
+				.consume(System.out::println);
+
+	}
 }
