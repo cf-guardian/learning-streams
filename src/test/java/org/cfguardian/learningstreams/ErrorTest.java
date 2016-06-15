@@ -25,7 +25,7 @@ public final class ErrorTest {
 				.doOnError(t -> error.set(true))
 				.onErrorReturn("dummy")
 				.next()
-				.get();
+				.block();
 
 		assertFalse(mapped.get());
 		assertTrue(error.get());
@@ -45,7 +45,7 @@ public final class ErrorTest {
 				.doOnError(t -> error.set(true))
 				.onErrorReturn("dummy")
 				.next()
-				.get();
+				.block();
 
 		assertFalse(mapped.get());
 		assertTrue(error.get());
@@ -55,7 +55,7 @@ public final class ErrorTest {
 	public void afterBehaviourWithUpstreamError() {
 
 		Mono.error(new IllegalArgumentException("bad"))
-				.after(() -> Mono.empty())
-				.get();
+				.then(() -> Mono.empty())
+				.block();
 	}
 }

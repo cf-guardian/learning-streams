@@ -19,7 +19,7 @@ public final class ZipTest {
 						(a, b) -> a.equals(b)
 				)
 				.reduce(true, (accum, match) -> accum && match)
-				.get());
+				.block());
 
 		assertTrue(Flux
 				.zip(
@@ -28,7 +28,7 @@ public final class ZipTest {
 						(a, b) -> a.equals(b)
 				)
 				.reduce(true, (accum, match) -> accum && match)
-				.get());
+				.block());
 	}
 
 	@Test
@@ -40,6 +40,6 @@ public final class ZipTest {
 		assertTrue(Flux
 				.zip(as, bs, (a, b) -> "x".equals(a) && "y".equals(b))
 				.next()
-				.get());
+				.block());
 	}
 }

@@ -19,7 +19,7 @@ public final class AfterTest {
 						.just("test-string")
 						.doOnSuccess(str -> System.out.println("Success: stream.after-1 " + str))
 						.doOnError(x -> System.out.println("Error: stream.after-1 " + x))
-						.after(
+						.then(
 								() -> Mono
 										.just("after-test-string")
 										.doOnSuccess(str -> System.out.println("Success: stream.after-2 " + str))
@@ -27,7 +27,7 @@ public final class AfterTest {
 						)
 						.doOnSuccess(str -> System.out.println("Success: stream.after-3 " + str))
 						.doOnError(x -> System.out.println("Error: stream.after-3 " + x))
-						.get());
+						.block());
 	}
 
 	@Test
@@ -39,7 +39,7 @@ public final class AfterTest {
 							.error(new IllegalArgumentException("test-exception"))
 							.doOnSuccess(str -> System.out.println("Success: stream.after-1 " + str))
 							.doOnError(x -> System.out.println("Error: stream.after-1 " + x))
-							.after(
+							.then(
 									() -> Mono
 											.just("after-test-string")
 											.doOnSuccess(str -> System.out.println("Success: stream.after-2 " + str))
@@ -48,7 +48,7 @@ public final class AfterTest {
 							.doOnSuccess(str -> System.out.println("Success: stream.after-3 " + str))
 							.doOnError(x -> System.out.println("Error: stream.after-3 " + x))
 							.as(Flux::from)
-							.toList().get();
+							.collectList().block();
 			System.out.println(list);
 			fail("Should throw IllegalArgumentException");
 		}
@@ -69,7 +69,7 @@ public final class AfterTest {
 						.empty()
 						.doOnSuccess(str -> System.out.println("Success: stream.after-1 " + str))
 						.doOnError(x -> System.out.println("Error: stream.after-1 " + x))
-						.after(
+						.then(
 								() -> Mono
 										.just("after-test-string")
 										.doOnSuccess(str -> System.out.println("Success: stream.after-2 " + str))
@@ -77,7 +77,7 @@ public final class AfterTest {
 						)
 						.doOnSuccess(str -> System.out.println("Success: stream.after-3 " + str))
 						.doOnError(x -> System.out.println("Error: stream.after-3 " + x))
-						.get());
+						.block());
 	}
 
 }

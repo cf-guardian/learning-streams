@@ -22,14 +22,14 @@ public final class LearningStreamsTest {
 
 	@Test
 	public final void streamFromIterable() {
-		assertEquals("singleton element 1", Flux.fromIterable(getSimpleList()).next().get());
+		assertEquals("singleton element 1", Flux.fromIterable(getSimpleList()).next().block());
 	}
 
 	@Test
 	public final void publisherToStream() {
 		Publisher<String> p = Flux.fromIterable(getSimpleList());
 
-		assertEquals("singleton element 1", Flux.from(p).next().get());
+		assertEquals("singleton element 1", Flux.from(p).next().block());
 	}
 
 	@Test
@@ -37,7 +37,7 @@ public final class LearningStreamsTest {
 
 		stringRangeFlux("element ", 10)
 				.map(x -> x)
-				.consume(System.out::println);
+				.subscribe(System.out::println);
 
 	}
 }

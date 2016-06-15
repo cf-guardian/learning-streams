@@ -22,7 +22,7 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <protobuf.version>2.6.1</protobuf.version>
-        <projectreactor.version>2.5.0.BUILD-SNAPSHOT</projectreactor.version>
+        <projectreactor.version>2.5.0.M4</projectreactor.version>
     </properties>
 
     <dependencies>
